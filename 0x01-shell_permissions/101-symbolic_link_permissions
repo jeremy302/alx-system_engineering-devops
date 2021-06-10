@@ -1,2 +1,0 @@
-#!/bin/bash
-sudo chown -h --no-dereference betty:holberton ./_hello
