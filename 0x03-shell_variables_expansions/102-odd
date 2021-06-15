@@ -1,2 +1,2 @@
 #!/bin/bash
-grep '' -n | grep -P "^\d+(?<=[13579])"
+grep '' -n | grep -P "^\d+(?<=[13579])" | cut -d ':' -f 2-
