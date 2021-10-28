@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # prints some superstitious numbers
-i=0
+i=1
 while [ $i -le 20 ]; do
 	echo $i
 	case $i in

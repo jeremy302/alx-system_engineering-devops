@@ -7,7 +7,7 @@ awk '
 END {
 	PROCINFO["sorted_in"] = "@val_num_desc"
 	for (i in logs)
-		printf("%7s %s\n", logs[i], i);
+		printf("    %3s %s\n", logs[i], i);
 
 }
 ' < apache-access.log
