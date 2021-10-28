@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 # selects IP and HTTP status from an apache log file then sorts it
 awk '
+function cmp (i1, v1, i2, v2)
 {
-	logs[$1 " " $9] += 1;
+	return v1 == v2 ? i1 < i2 : v1 < v2;
+}
+{
+	++logs[$1 " " $9];
 }
 END {
-	PROCINFO["sorted_in"] = "@val_num_desc"
+	PROCINFO["sorted_in"] = "cmp"
 	for (i in logs)
-		printf("    %3s %s\n", logs[i], i);
+		printf("    %3d %s\n", logs[i], i);
 
 }
 ' < apache-access.log
