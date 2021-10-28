@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# selects IP and HTTP status from an apache log file then sorts it
 awk '
 {
 	logs[$1 " " $9] += 1;
@@ -6,7 +7,7 @@ awk '
 END {
 	PROCINFO["sorted_in"] = "@val_num_desc"
 	for (i in logs)
-		print "    " logs[i] " " i;
+		printf("%7s %s\n", logs[i], i);
 
 }
 ' < apache-access.log

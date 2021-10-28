@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# reads, cuts the formats the /etc/passwd file into a sentence
 while read -r line; do
 	read -r -a cols <<< "$(cut --output-delimiter=' ' -d ':' -f 1- <<< "$line")"
 	
