@@ -7,11 +7,11 @@
  */
 int infinite_while(void)
 {
-    while (1)
-    {
-        sleep(2);
-    }
-    return (0);
+	while (1)
+	{
+		sleep(2);
+	}
+	return (0);
 }
 
 
@@ -27,5 +27,5 @@ int main(void)
 	while (i++ < 5 && fork() != 0)
 		if (i == 5)
 			infinite_while();
-    return (0);
+	return (0);
 }
