@@ -25,5 +25,4 @@ trap sigquit_hdl SIGQUIT
 while ((1))
 do
 	echo "To infinity and beyond"
-	sleep 2
 done
