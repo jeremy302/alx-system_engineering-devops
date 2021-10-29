@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # kills a process
-for pid in $(pgrep -f "4-to_infinity_and_beyond"); do
+for pid in $(pgrep -f "7-highlander"); do
 	kill -s SIGSTOP "$pid"
 done
