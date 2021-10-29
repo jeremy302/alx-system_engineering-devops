@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# handles some signals
+echo $$ > /var/run/myscript.pid
+function sigterm_hdl()
+{
+	echo "I hate the kill command"
+	rm /var/run/my.pid
+	exit
+}
+trap sigterm_hdl SIGTERM
+
+function sigint_hdl()
+{
+	echo "Y U no love me?!"
+}
+trap sigint_hdl SIGINT
+
+function sigquit_hdl()
+{
+	rm /var/run/my.pid
+	exit
+}
+trap sigquit_hdl SIGQUIT
+
+while ((1))
+do
+	echo "To infinity and beyond"
+	sleep 2
+done

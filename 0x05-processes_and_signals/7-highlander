@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# infinitely prints To infinity and beyond
+function sigterm_hdl()
+{
+	echo "I am invincible!!!"
+}
+trap sigterm_hdl SIGTERM
+while ((1))
+do
+	echo "To infinity and beyond"
+	sleep 2
+done

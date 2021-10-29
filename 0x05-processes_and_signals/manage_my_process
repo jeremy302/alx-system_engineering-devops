@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# infinitely prints To "I am alive!"
+while ((1))
+do
+	echo "I am alive"
+	sleep 2
+done
