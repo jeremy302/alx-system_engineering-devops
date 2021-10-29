@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # handles some signals
-echo $$ > /var/run/myscript.pid
+echo $$ | sudo tee /var/run/myscript.pid
 function sigterm_hdl()
 {
 	echo "I hate the kill command"
-	rm /var/run/my.pid
+	sudo rm /var/run/my.pid
 	exit
 }
 trap sigterm_hdl SIGTERM
@@ -17,7 +17,7 @@ trap sigint_hdl SIGINT
 
 function sigquit_hdl()
 {
-	rm /var/run/my.pid
+	sudo rm /var/run/my.pid
 	exit
 }
 trap sigquit_hdl SIGQUIT
