@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 # listens on a port
-nc -l 127.0.0.2 98
+nc -l 98
