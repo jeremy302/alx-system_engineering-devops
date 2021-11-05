@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# configures some ip
+cp /etc/hosts ~/hosts.new
+cmd1="BEGIN {str = \"\";} {str = str (\$0 ~ /^\s*[0-9]+"
+cmd2="(.[0-9]+){3}(\s+|\t+)(facebook.com|localhost)(\W|$)/ ?"
+cmd3="\"# \" : \"\") \$0 \"\\n\"} END {printf str}"
+str="$(awk "$cmd1$cmd2$cmd3" < ~/hosts.new)"
+echo "$str" > ~/hosts.new
+printf "\n127.0.0.2\tlocalhost\n8.8.8.8\tfacebook.com\n" >> ~/hosts.new
+cp -f ~/hosts.new /etc/hosts
