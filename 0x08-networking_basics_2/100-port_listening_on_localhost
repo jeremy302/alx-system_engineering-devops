@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # listens on a port
-nc -l 98 2&> ~/tmp
+nc -l 98 > ~/tmp
 echo 0
