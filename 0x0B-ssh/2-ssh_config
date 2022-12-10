@@ -1,0 +1,4 @@
+# ssh client configuration
+Match all
+IdentityFile ~/.ssh/school
+PasswordAuthentication no
