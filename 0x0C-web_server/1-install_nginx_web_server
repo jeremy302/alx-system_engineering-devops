@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# installs nginx
+sudo apt-get -y update
+sudo apt-get -y install nginx
+html='<!DOCTYPE html>
+<html>
+<head>
+<title>Static Content</title>
+</head>
+<body>
+Hello World!
+</body>
+</html>'
+sudo echo "$html" > /etc/nginx/sites-available/alx-1.com
+sudo ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com
+sudo nginx -s reload
