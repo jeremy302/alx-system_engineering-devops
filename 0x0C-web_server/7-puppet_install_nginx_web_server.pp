@@ -1,4 +1,5 @@
 # installs and configures nginx
+
 exec { 'apt-get update':
   path => ['/bin', '/usr/bin'],
 }
@@ -13,8 +14,8 @@ file { '/var/www/html/index.html':
 }
 
 file { '/etc/nginx/sites-enabled/default':
-  content =>
-"server {
+  content =>"
+server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
 
@@ -30,5 +31,5 @@ file { '/etc/nginx/sites-enabled/default':
 }
 
 exec { 'nginx':
-  path    => '/usr/bin:/usr/sbin:/bin',
+  path    => ['/usr/sbin'],
 }
