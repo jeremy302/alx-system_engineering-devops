@@ -1,35 +1,39 @@
 #!/usr/bin/env bash
-# Installs, configures, and starts the server
-apt-get update
-apt-get -y install nginx
-ufw allow 'Nginx HTTP'
-mkdir -p /var/www/html /var/www/error
-chmod -R 755 /var/www
-echo 'Hello World!' > /var/www/html/index.html
-echo -e "Ceci n\x27est" > /var/www/error/404.html
-# the server's configuration
-SERVER_CONFIG=\
-"server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-	root /var/www/html;
-	index index.html index.htm index.nginx-debian.html;
-	server_name _;
-	location / {
-		try_files \$uri \$uri/ =404;
-	}
-	if (\$request_filename ~ redirect_me){
-		rewrite ^ https://sketchfab.com/bluepeno/models permanent;
-	}
-	error_page 404 /404.html;
-	location = /404.html {
-		root /var/www/error/;
-		internal;
-	}
-}"
-bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
-if [ "$(pgrep -c nginx)" -le 0 ]; then
-	service nginx start
-else
-	service nginx restart
-fi
+# installs nginx
+sudo apt-get update
+sudo apt-get -y install nginx
+config="
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/alx-1/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        server_name _;
+		error_page 404 /404.html;
+		rewrite ^/redirect_me / permanent;
+
+        location / {
+                try_files \$uri \$uri/ =404;
+        }
+		location = /404.html {
+                root /var/www/alx-1/html;
+                internal;
+        }
+
+}
+"
+html='Hello World!'
+sudo mkdir -p /var/www/alx-1/html/
+# sudo chown "$USER:$USER" /var/www/alx-1
+sudo tee /var/www/alx-1/html/index.html <<< "$html" &> /dev/null
+
+sudo tee /etc/nginx/sites-available/alx-1.com <<< "$config" &> /dev/null
+sudo ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com
+sudo rm /etc/nginx/sites-enabled/default
+
+error="Ceci n'est pas une page"
+sudo tee /var/www/alx-1/html/404.html <<< "$error" &> /dev/null
+
+if pgrep nginx; then sudo nginx -s reload; else sudo nginx; fi
