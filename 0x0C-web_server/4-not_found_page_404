@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# installs nginx
-sudo apt-get update
+# installs nginx, and configures 404 apge
+sudo apt-get -y update
 sudo apt-get -y install nginx
 config="
 server {
@@ -17,11 +17,18 @@ server {
         location / {
                 try_files \$uri \$uri/ =404;
         }
-		location = /404.html {
-                root /var/www/alx-1/html;
-                internal;
-        }
-
 }
 "
 html='Hello World!'
+sudo mkdir -p /var/www/alx-1/html/
+# sudo chown "$USER:$USER" /var/www/alx-1
+sudo tee /var/www/alx-1/html/index.html <<< "$html" &> /dev/null
+
+sudo tee /etc/nginx/sites-available/alx-1.com <<< "$config" &> /dev/null
+sudo ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com
+sudo rm /etc/nginx/sites-enabled/default
+
+error="Ceci n'est pas une page"
+sudo tee /var/www/alx-1/html/404.html <<< "$error" &> /dev/null
+
+if pgrep nginx; then sudo nginx -s reload; else sudo nginx; fi
