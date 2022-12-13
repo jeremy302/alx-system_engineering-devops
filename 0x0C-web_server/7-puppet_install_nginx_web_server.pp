@@ -47,7 +47,7 @@ server {
 }
 
 
-tidy { '/etc/nginx/sites-enabled/default' }
+tidy { '/etc/nginx/sites-enabled/default': }
 
 file { '/etc/nginx/sites-available/alx-1.com':
   ensure => 'link',
