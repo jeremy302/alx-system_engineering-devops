@@ -2,7 +2,7 @@
 # installs nginx
 sudo apt-get update
 sudo apt-get -y install nginx
-config='
+config="
 server {
         listen 80;
         listen [::]:80;
@@ -10,11 +10,11 @@ server {
         root /var/www/alx-1/html;
         index index.html index.htm index.nginx-debian.html;
 
-        # server_name jeremy.com www.example.com;
+        server_name _;
 
         location / {
-                try_files $uri $uri/ =404;
+                try_files \$uri \$uri/ =404;
         }
 }
-'
+"
 html='Hello World!'
