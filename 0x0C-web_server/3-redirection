@@ -18,5 +18,18 @@ server {
 }
 "
 html='Hello World!'
+sudo mkdir -p /var/www/alx-1/html/
+# sudo chown "$USER:$USER" /var/www/alx-1
+sudo tee /var/www/alx-1/html/index.html <<< "$html" &> /dev/null
 
-echo "$config $html"
+sudo tee /etc/nginx/sites-available/alx-1.com <<< "$config" &> /dev/null
+sudo ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com
+sudo rm /etc/nginx/sites-enabled/default
+
+cp /etc/nginx/sites-available/alx-1.com /tmp/alx-1.com
+awk '{print $0; if (match($0, /server_name/))
+print("        rewrite ^/redirect_me / permanent;");}' < /tmp/alx-1.com |
+sudo tee /etc/nginx/sites-available/alx-1.com
+sudo rm /tmp/alx-1.com
+
+if pgrep nginx; then sudo nginx -s reload; else sudo nginx; fi
