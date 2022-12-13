@@ -17,6 +17,11 @@ server {
         location / {
                 try_files \$uri \$uri/ =404;
         }
+		location = /404.html {
+                root /var/www/alx-1/html;
+                internal;
+        }
+
 }
 "
 html='Hello World!'
