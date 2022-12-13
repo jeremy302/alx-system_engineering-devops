@@ -50,7 +50,6 @@ file { 'Nginx server config file':
 }"
 }
 
-exec { 'Start the server':
-  command => 'service nginx restart',
-  path    => '/usr/bin:/usr/sbin:/bin'
+exec { 'nginx -s reload':
+  path    => '/usr/bin:/usr/sbin:/bin',
 }
