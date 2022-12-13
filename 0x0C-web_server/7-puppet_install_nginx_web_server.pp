@@ -50,6 +50,6 @@ file { 'Nginx server config file':
 }"
 }
 
-exec { 'nginx -s reload':
+exec { 'nginx':
   path    => '/usr/bin:/usr/sbin:/bin',
 }
