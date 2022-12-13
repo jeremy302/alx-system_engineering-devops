@@ -1,5 +1,5 @@
 # installs flask
-exec { 'apt-get update',
+exec { 'apt-get update':
   path => ['/bin', '/usr/bin'],
 }
 
@@ -45,14 +45,14 @@ file { '/var/www/alx-1/html/index.html':
 }
 
 file { '/etc/nginx/sites-enabled/default':
-  ensure => deleted
+  ensure => deleted,
 }
 
-exec { 'ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com',
+exec { 'ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com':
   path => ['/bin', '/usr/bin'],
 }
 
 exec { 'Start the server':
   command => 'service nginx restart',
-  path    => '/usr/bin:/usr/sbin:/bin'
+  path    => '/usr/bin:/usr/sbin:/bin',
 }
