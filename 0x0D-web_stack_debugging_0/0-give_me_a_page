@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # debugged
-sudo echo 'Hello Holberton' > /var/www/html/index.html
+sudo tee /var/www/html/index.html <<< 'Hello Holberton'
 sudo service apache2 start
