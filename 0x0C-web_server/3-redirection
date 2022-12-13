@@ -27,10 +27,6 @@ sudo ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com
 sudo rm /etc/nginx/sites-enabled/default
 
 
-cp /etc/nginx/sites-available/alx-1.com /tmp/alx-1.com
-awk '{print $0; if (match($0, /server_name/))
-print("        rewrite ^/redirect_me / permanent;");}' < /tmp/alx-1.com |
-sudo tee /etc/nginx/sites-available/alx-1.com
-sudo rm /tmp/alx-1.com
+
 
 pgrep nginx && sudo nginx -s reload || sudo nginx
