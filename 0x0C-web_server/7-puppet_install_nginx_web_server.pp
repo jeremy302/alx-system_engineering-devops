@@ -9,7 +9,7 @@ package { 'nginx':
 }
 
 file { '/etc/nginx/sites-available/alx-1.com':
-  mode    => '0755',n
+  mode    => '0755',
   owner   => 'www-data',
   group   => 'www-data',
   content =>"
