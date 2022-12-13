@@ -2,6 +2,7 @@
 # installs nginx
 sudo apt-get update
 sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
 config="
 server {
         listen 80;
@@ -19,7 +20,8 @@ server {
 "
 html='Hello World!'
 sudo mkdir -p /var/www/alx-1/html/
-# sudo chown "$USER:$USER" /var/www/alx-1
+sudo chown "$USER:$USER" /var/www/alx-1/
+sudo chmod -R 755 /var/www/alx-1/
 sudo tee /var/www/alx-1/html/index.html <<< "$html" &> /dev/null
 
 sudo tee /etc/nginx/sites-available/alx-1.com <<< "$config" &> /dev/null
