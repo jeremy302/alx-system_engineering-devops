@@ -1,14 +1,11 @@
 # Nginx server setup and configuration
-exec { 'Update the apt repository':
-  command => 'apt update',
-  path    => '/usr/bin:/usr/sbin:/bin'
+exec { 'apt-get update':
+  path => ['/bin', '/usr/bin'],
 }
 
-package { 'The web server':
-  ensure          => installed,
-  name            => 'nginx',
-  provider        => 'apt',
-  install_options => ['-y']
+package { 'nginx':
+  provider        => apt,
+  install_options => ['-y'],
 }
 
 file { 'The home page':
