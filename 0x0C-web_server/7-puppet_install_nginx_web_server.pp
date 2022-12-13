@@ -52,6 +52,7 @@ exec { 'ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.c
   path => ['/bin', '/usr/bin'],
 }
 
-exec { 'nginx -s reload':
-  path => ['/usr/sbin'],
+exec { 'Start the server':
+  command => 'service nginx restart',
+  path    => '/usr/bin:/usr/sbin:/bin'
 }
