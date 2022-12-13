@@ -2,6 +2,21 @@
 # installs nginx
 sudo apt-get -y update
 sudo apt-get -y install nginx
+config='
+server {
+        listen 80;
+        listen [::]:80;
+
+        root /var/www/alx-1/html;
+        index index.html index.htm index.nginx-debian.html;
+
+        # server_name jeremy.com www.example.com;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+'
 html='<!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +26,11 @@ html='<!DOCTYPE html>
 Hello World!
 </body>
 </html>'
-sudo echo "$html" > /etc/nginx/sites-available/alx-1.com
+sudo mkdir -p /var/www/alx-1/html/
+sudo chown "$USER:$USER" /var/www/alx-1
+sudo tee /var/www/alx-1/html/index.html <<< "$html" &> /dev/null
+
+sudo tee /etc/nginx/sites-available/alx-1.com <<< "$config" &> /dev/null
 sudo ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com
+sudo rm /etc/nginx/sites-enabled/default
 sudo nginx -s reload
