@@ -18,12 +18,3 @@ server {
 }
 '
 html='Hello World!'
-sudo mkdir -p /var/www/alx-1/html/
-# sudo chown "$USER:$USER" /var/www/alx-1
-sudo tee /var/www/alx-1/html/index.html <<< "$html" &> /dev/null
-
-sudo tee /etc/nginx/sites-available/alx-1.com <<< "$config" &> /dev/null
-sudo ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com
-sudo rm /etc/nginx/sites-enabled/default
-
-pgrep nginx && sudo nginx -s reload || sudo nginx
