@@ -8,28 +8,23 @@ package { 'nginx':
   install_options => ['-y'],
 }
 
-file { 'The home page':
-  path    => '/var/www/html/index.html',
+file { '/var/www/html/index.html':
   content => "Hello World!"
 }
 
-file { 'Nginx server config file':
-  ensure  => file,
-  path    => '/etc/nginx/sites-enabled/default',
-  mode    => '0744',
-  owner   => 'www-data',
+file { '/etc/nginx/sites-enabled/default':
   content =>
 "server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
-	root /var/www/html;
+
+    root /var/www/html;
 	index index.html index.htm index.nginx-debian.html;
-	server_name _;
+
+    server_name _;
+    rewrite ^/redirect_me / permanent;
 	location / {
 		try_files \$uri \$uri/ =404;
-	}
-	if (\$request_filename ~ redirect_me){
-		rewrite ^ https://sketchfab.com/bluepeno/models permanent;
 	}
 }"
 }
