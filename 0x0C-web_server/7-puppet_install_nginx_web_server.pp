@@ -1,4 +1,4 @@
-# installs flask
+# installs and configures nginx
 exec { 'apt-get update':
   path => ['/bin', '/usr/bin'],
 }
@@ -8,54 +8,31 @@ package { 'nginx':
   install_options => ['-y'],
 }
 
-
-file { '/var/www/alx-1':
-    ensure => 'directory',
-}
-file { '/var/www/alx-1/html':
-    ensure => 'directory',
+file { 'The home page':
+  path    => '/var/www/html/index.html',
+  content => "Hello World!"
 }
 
-file { '/var/www/alx-1/html/index.html':
+file { 'Nginx server config file':
+  ensure  => file,
+  path    => '/etc/nginx/sites-enabled/default',
   mode    => '0744',
   owner   => 'www-data',
-  group   => 'www-data',
-  content => "Hello World!\n",
+  content =>
+"server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	root /var/www/html;
+	index index.html index.htm index.nginx-debian.html;
+	server_name _;
+	location / {
+		try_files \$uri \$uri/ =404;
+	}
+	if (\$request_filename ~ redirect_me){
+		rewrite ^ https://sketchfab.com/bluepeno/models permanent;
+	}
+}"
 }
-
-
-file { '/etc/nginx/sites-available/alx-1.com':
-  mode    => '0755',
-  owner   => 'www-data',
-  group   => 'www-data',
-  content =>"
-server {
-        listen 80;
-        listen [::]:80;
-
-        root /var/www/alx-1/html;
-        index index.html index.htm index.nginx-debian.html;
-
-        server_name _;
-		rewrite ^/redirect_me / permanent;
-
-        location / {
-                try_files \$uri \$uri/ =404;
-        }
-}
-",
-}
-
-
-tidy { '/etc/nginx/sites-enabled/default': }
-
-file { '/etc/nginx/sites-available/alx-1.com':
-  ensure => 'link',
-  target => '/etc/nginx/sites-enabled/alx-1.com'
-}
-# exec { 'ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com':
-#   path => ['/bin', '/usr/bin'],
-# }
 
 exec { 'nginx':
   path    => '/usr/bin:/usr/sbin:/bin',
