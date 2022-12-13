@@ -26,7 +26,4 @@ sudo tee /etc/nginx/sites-available/alx-1.com <<< "$config" &> /dev/null
 sudo ln /etc/nginx/sites-available/alx-1.com /etc/nginx/sites-enabled/alx-1.com
 sudo rm /etc/nginx/sites-enabled/default
 
-
-
-
 pgrep nginx && sudo nginx -s reload || sudo nginx
