@@ -18,3 +18,5 @@ server {
 }
 "
 html='Hello World!'
+
+echo "$config $html"
