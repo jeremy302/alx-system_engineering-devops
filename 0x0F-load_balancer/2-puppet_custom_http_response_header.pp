@@ -1,35 +1,30 @@
 # installs and configures nginx with X-Served-By header
 
-exec { 'apt-get update':
-  path => ['/bin', '/usr/bin'],
-}
+exec { '/usr/bin/apt-get update': }
 
 package { 'nginx':
-  provider        => apt,
-  install_options => ['-y'],
+  ensure  => installed,
+  require => Exec['apt-get-update'],
 }
 
-file { '/var/www/html/index.html':
-  content => "Holberton School"
-}
-
-file_line { 'f1':
+file_line { 'file1':
   ensure  => 'present',
   path    => '/etc/nginx/sites-available/default',
   after   => 'listen 80 default_server;',
   line    => 'rewrite ^/redirect_me https://sketchfab.com/bluepeno/models permanent;',
-  require => Package['nginx'],
 }
 
-file_line { 'f2':
+file_line { 'file2':
   ensure  => 'present',
   path    => '/etc/nginx/sites-available/default',
   after   => 'listen 80 default_server;',
   line    => 'add_header X-Served-By $hostname;',
-  require => Package['nginx'],
+}
+
+file { '/var/www/html/index.html':
+  content => 'Holberton School',
 }
 
 service { 'nginx':
   ensure  => running,
-  require => Package['nginx'],
 }
