@@ -14,7 +14,7 @@ backend alx-backend
 	server web1 $IP_1:80 check
 	server web2 $IP_2:80 check
 
-frontend alx-frontendp
+frontend alx-frontend
 	bind *:80
 	mode http
 
