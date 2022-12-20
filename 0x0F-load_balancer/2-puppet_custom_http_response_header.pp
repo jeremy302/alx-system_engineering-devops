@@ -1,8 +1,6 @@
 # installs and configures nginx with X-Served-By header
 
-exec { 'apt-get-update':
-  command => '/usr/bin/apt-get update',
-}
+exec { '/usr/bin/apt-get update' }
 
 package { 'nginx':
   ensure  => installed,
@@ -27,10 +25,8 @@ file_line { 'b':
 
 file { '/var/www/html/index.html':
   content => 'Hello World!',
-  require => Package['nginx'],
 }
 
 service { 'nginx':
   ensure  => running,
-  require => Package['nginx'],
 }
