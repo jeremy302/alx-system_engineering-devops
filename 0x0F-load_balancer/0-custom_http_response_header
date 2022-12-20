@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# installs nginx, and configures 404 apge
+# installs nginx, and configures X-Served-By header
 sudo apt-get -y update
 sudo apt-get -y install nginx
 config="

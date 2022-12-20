@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# installs and configures haproxy
+sudo apt-get -y update
+sudo apt-get -y install haproxy
+
+IP_1='52.3.240.48'
+IP_2='54.157.141.179'
+
+INIT_FILE='/etc/default/haproxy'
+CONFIG_FILE='/etc/haproxy/haproxy.cfg'
+CONFIG="
+backend alx
+  balance roundrobin
+  mode http
+  server web1 $IP_1 check
+  server web2 $IP_2 check
+
+frontend alx
+  bind *:80
+  mode http
+
+  default_backend alx
+"
+
+sudo touch INIT_FILE
+sudo touch CONFIG_FILE
+sudo tee "$CONFIG_FILE" <<< "$CONFIG" &> /dev/null
+
+sudo cat "$INIT_FILE" | awk '
+BEGIN { i = 0; }
+{
+	if (match($0, /ENABLED=[01]/)) { i = 1; print("ENABLED=1"); }
+	else print($0);
+}
+END { if (i == 0) print("ENABLED=1"); }' > /tmp/hpx_init
+sudo mv /tmp/hpx_init "$INIT_FILE"
+
+if pgrep haproxy;
+then sudo service haproxy restart;
+else sudo service haproxy start; fi
+
