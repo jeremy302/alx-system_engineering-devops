@@ -9,7 +9,6 @@ file_line { '_':
 }
 
 file_line { '__':
-  ensure  => 'present',
   path    => '/etc/nginx/sites-available/default',
   after   => 'listen 80 default_server;',
   line    => 'add_header X-Served-By $hostname;',
@@ -18,7 +17,6 @@ file_line { '__':
 
 file { '/var/www/html/index.html':
   content => 'Hello World!',
-  require => Package['nginx'],
 }
 
 service { 'nginx':
