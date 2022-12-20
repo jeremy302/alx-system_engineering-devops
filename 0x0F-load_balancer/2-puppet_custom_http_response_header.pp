@@ -10,7 +10,7 @@ package { 'nginx':
 }
 
 file { '/var/www/html/index.html':
-  content => "Hello World!"
+  content => "Holberton School"
 }
 
 file { '/etc/nginx/sites-enabled/default':
