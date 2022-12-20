@@ -13,25 +13,23 @@ file { '/var/www/html/index.html':
   content => "Holberton School"
 }
 
-file { '/etc/nginx/sites-enabled/default':
-  content =>"
-server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
-
-    root /var/www/html;
-	index index.html index.htm index.nginx-debian.html;
-
-    server_name _;
-    rewrite ^/redirect_me / permanent;
-	add_header X-Served-By \$hostname;
-
-	location / {
-		try_files \$uri \$uri/ =404;
-	}
-}"
+file_line { 'f1':
+  ensure  => 'present',
+  path    => '/etc/nginx/sites-available/default',
+  after   => 'listen 80 default_server;',
+  line    => 'rewrite ^/redirect_me https://sketchfab.com/bluepeno/models permanent;',
+  require => Package['nginx'],
 }
 
-exec { 'nginx':
-  path    => ['/usr/sbin'],
+file_line { 'f2':
+  ensure  => 'present',
+  path    => '/etc/nginx/sites-available/default',
+  after   => 'listen 80 default_server;',
+  line    => 'add_header X-Served-By $hostname;',
+  require => Package['nginx'],
+}
+
+service { 'nginx':
+  ensure  => running,
+  require => Package['nginx'],
 }
