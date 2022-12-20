@@ -1,15 +1,13 @@
 # installs and configures nginx with X-Served-By header
 
 
-file_line { 'a':
-  ensure  => 'present',
-  path    => '/etc/nginx/sites-available/default',
+file_line { '/etc/nginx/sites-available/default':
   after   => 'listen 80 default_server;',
   line    => 'rewrite ^/redirect_me https://sketchfab.com/bluepeno/models permanent;',
   require => Package['nginx'],
 }
 
-file_line { 'b':
+file_line { '_':
   ensure  => 'present',
   path    => '/etc/nginx/sites-available/default',
   after   => 'listen 80 default_server;',
