@@ -3,6 +3,6 @@
 DIR='/etc/nginx/sites-enabled/default'
 sed -i 's/listen 8080/listen 80/g' "$DIR"
 sed -i 's/listen \[::\]:8080/listen \[::\]:80/g' "$DIR"
-pgrep nginx > /run/nginx.pid
+pgrep -o nginx > /run/nginx.pid
 nginx -s reload
-echo > /run/nginx.pid
+echo "" > /run/nginx.pid
