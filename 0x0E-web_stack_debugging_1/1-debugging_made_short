@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # fixes bug
-CMD="FILE='/etc/nginx/sites-enabled/default' \ncp \$FILE /tmp/f1 \nawk '{if(match(\$0, /listen.*8080/)) gsub(/8080/,\"80\"); print(\$0)}' > \"\$FILE\" < /tmp/f1 \nrm /tmp/f1 \npgrep -o nginx > /run/nginx.pid \nnginx -s reload \necho > /run/nginx.pid"
+CMD="FILE='/etc/nginx/sites-enabled/default' \ncp \$FILE /tmp/f1 \nawk '{if(match(\$0, /listen.*8080/)) {gsub(/8080/,\"80\")} print(\$0)}' > \"\$FILE\" < /tmp/f1 \nrm /tmp/f1 \npgrep -o nginx > /run/nginx.pid \nnginx -s reload \necho > /run/nginx.pid"
 echo -e "$CMD" | bash
