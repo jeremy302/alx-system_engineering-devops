@@ -4,6 +4,6 @@ FILE='/etc/nginx/sites-enabled/default'
 cp "$FILE" /tmp/f1
 awk '{if(match($0, /listen.*8080/)) gsub(/8080/,"80"); print($0)}' > "$FILE" < /tmp/f1
 rm /tmp/f1
-pgrep -o nginx
+pgrep -o nginx > /run/nginx.pid
 nginx -s reload
 echo > /run/nginx.pid
