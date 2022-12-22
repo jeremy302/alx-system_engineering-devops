@@ -2,6 +2,7 @@
 # fixes bug
 FILE='/etc/nginx/sites-enabled/default'
 cp "$FILE" /tmp/f1
-cat /tmp/f1 | awk '{if(match($0, /listen.*8080/)) gsub(/8080/,"80"); print($0)}' > "$FILE"
+awk '{if(match($0, /listen.*8080/)) gsub(/8080/,"80"); print($0)}' > "$FILE" < /tmp/f1
+rm /tmp/f1
 pkill nginx
 service nginx start
