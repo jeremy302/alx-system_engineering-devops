@@ -5,3 +5,4 @@ sed -i 's/listen 8080/listen 80/g' "$DIR"
 sed -i 's/listen \[::\]:8080/listen \[::\]:80/g' "$DIR"
 pgrep nginx | tee /run/nginx.pid &> /dev/null
 nginx -s reload
+echo > /run/nginx.pid
