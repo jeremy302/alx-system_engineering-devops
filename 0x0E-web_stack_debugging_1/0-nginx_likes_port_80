@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # fixes bug
-DIR='/etc/nginx/sites-enabled/default'
-sed -i 's/listen 8080/listen 80/g' "$DIR"
-sed -i 's/listen \[::\]:8080/listen \[::\]:80/g' "$DIR"
-pgrep -o nginx > /run/nginx.pid
-nginx -s reload
-echo "" > /run/nginx.pid
+FILE='/etc/nginx/sites-enabled/default'
+cp "$FILE" /tmp/f1
+cat /tmp/f1 | awk '{if(match($0, /listen.*8080/)) gsub(/8080/,"80"); print($0)}' > "$FILE"
+pkill nginx
+service nginx start
