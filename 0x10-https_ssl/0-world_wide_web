@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# gets domain info
+
+get_info() {
+    dom="$1"
+    subs=()
+    readarray -t subs < <(echo "$2" | tr ' ' '\n')
+	for ((i = 0; i < "${#subs[@]}"; i++)) do
+        sub="${subs[i]}"
+		output_awk='{print "The subdomain", "'
+		output_awk="$output_awk$subdomain is a"
+		output_awk="$output_awk\", \$7, \"record and points to\", \$8}"
+		dig "$sub.$dom" | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk "{print \"The subdomain $sub is a \" \$7 \" and points to \" \$8}"
+	done
+}
+
+if [ "${#BASH_ARGV[@]}" -ge '2' ]; then
+	get_info "$1" "$2"
+elif [ "${#BASH_ARGV[@]}" -ge '1' ]; then
+	get_info "$1" "www lb-01 web-01 web-02"
+fi
