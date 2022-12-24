@@ -10,7 +10,7 @@ get_info() {
 		output_awk='{print "The subdomain", "'
 		output_awk="$output_awk$subdomain is a"
 		output_awk="$output_awk\", \$7, \"record and points to\", \$8}"
-		dig "$sub.$dom" | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk "{print \"The subdomain $sub is a \" \$7 \" and points to \" \$8}"
+		dig "$sub.$dom" | grep -A1 'ANSWER SECTION:' | tr '\n' ' ' | awk "{print \"The subdomain $sub is a \" \$7 \" record and points to \" \$8}"
 	done
 }
 
