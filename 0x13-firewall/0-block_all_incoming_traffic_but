@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+ufw default deny incoming
+ufw allow 22/tcp # ssh
+ufw allow 80/tcp # http
+ufw allow 443/tcp # https
+ufw enable
