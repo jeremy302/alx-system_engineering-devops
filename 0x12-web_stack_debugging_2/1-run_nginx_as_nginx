@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# patch
+pkill apache2
+sed -i 's!listen.*\b80\b!&80!' etc/nginx/sites-enabled/default
+sed -i 's!#user www-data!user nginx!' /etc/nginx/nginx.conf
+service nginx start
