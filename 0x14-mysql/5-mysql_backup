@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# backs up db in a tar file
+FILENAME="$(date '+%d-%m-%Y.tar.gz')"
+mysqldump -u root -p="$1" -A > backup.sql
+tar -cvzf "$FILENAME"  backup.sql
