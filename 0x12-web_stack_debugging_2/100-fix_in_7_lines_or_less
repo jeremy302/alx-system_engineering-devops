@@ -5,5 +5,3 @@ sed -i 's!listen.*\b80\b!&80!' /etc/nginx/sites-enabled/default
 sed -i 's!#user www-data!user nginx!' /etc/nginx/nginx.conf
 chmod 644 /etc/nginx/nginx.conf
 su - nginx -s /bin/bash -c 'service nginx restart'
-
-
