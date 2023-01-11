@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# patch
+# patches nginx bug, and restarts it
 pkill apache2
 sed -i 's!listen.*\b80\b!\080!' /etc/nginx/sites-enabled/default
 sed -i 's!#user www-data!user nginx!' /etc/nginx/nginx.conf
