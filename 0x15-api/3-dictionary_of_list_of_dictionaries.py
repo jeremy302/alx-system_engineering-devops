@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-''' uses api '''
+''' uses api to get all users and tasks '''
 import urllib.request
 import json
 
