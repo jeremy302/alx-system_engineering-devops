@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 ''' uses api '''
-import sys
 import urllib.request
 import json
 

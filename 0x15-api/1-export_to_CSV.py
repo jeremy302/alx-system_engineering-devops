@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 ''' uses api '''
+import csv
+import json
 import sys
 import urllib.request
-import json
-import csv
+
 
 if __name__ == '__main__':
     id = sys.argv[1]
