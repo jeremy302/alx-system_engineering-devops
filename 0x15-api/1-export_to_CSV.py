@@ -1,27 +1,20 @@
 #!/usr/bin/python3
 ''' uses api '''
-import csv
-import json
 import sys
-import urllib.request
+import requests
 
 
 if __name__ == '__main__':
-    id = sys.argv[1]
+    id = int(sys.argv[1])
     base_url = 'https://jsonplaceholder.typicode.com'
 
-    with urllib.request.urlopen(f"{base_url}/users/{id}") as res:
-        user = json.load(res)
-        user_id = user['id']
-    with urllib.request.urlopen(f"{base_url}/todos?userId={user_id}") as res:
-        todos = json.load(res)
+    user = requests.get("{}/users/{}".format(base_url, id)).json()
+    todos = requests.get("{}/todos".format(base_url)).json()
+    todos = [t for t in todos if t.get('userId') == id]
 
-    rows = []
+    csv = ''
     for t in todos:
-        rows.append([user_id,
-                     user['username'],
-                     t['completed'],
-                     t['title']])
-    with open('{}.csv'.format(user_id), 'w') as file:
-        writer = csv.writer(file)
-        writer.writerows(rows)
+        csv += '"{}","{}","{}","{}"\n'.format(
+            id, user.get('username'), t.get('completed'), t.get('title'))
+    with open('{}.csv'.format(id), 'w') as file:
+        file.write(csv)
