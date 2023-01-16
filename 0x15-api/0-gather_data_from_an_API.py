@@ -4,3 +4,7 @@
 import json
 import sys
 import urllib.request
+
+
+if __name__ == '__main__':
+     id = sys.argv[1]
