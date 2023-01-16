@@ -6,7 +6,7 @@ import sys
 
 
 if __name__ == '__main__':
-    if len(sys.argv > 1):
+    if len(sys.argv) > 1:
         id = sys.argv[1]
         base_url = 'https://jsonplaceholder.typicode.com'
 
