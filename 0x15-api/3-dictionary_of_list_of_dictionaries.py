@@ -1,18 +1,16 @@
 #!/usr/bin/python3
 ''' uses api to get all users and tasks '''
-import urllib.request
 import json
+import requests
+
 
 if __name__ == '__main__':
     base_url = 'https://jsonplaceholder.typicode.com'
 
-    with urllib.request.urlopen(f"{base_url}/users") as res:
-        users = json.load(res)
-    with urllib.request.urlopen(f"{base_url}/todos") as res:
-        todos = json.load(res)
+    users = requests.get("{}/users".format(base_url)).json()
+    todos = requests.get("{}/todos".format(base_url)).json()
 
     data = {}
-
     for user in users:
         user_id = user['id']
         tasks = [t for t in todos if t['userId'] == user_id]
