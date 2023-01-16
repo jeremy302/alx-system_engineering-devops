@@ -10,6 +10,9 @@ if __name__ == '__main__':
     id = sys.argv[1]
     base_url = 'https://jsonplaceholder.typicode.com'
 
+    with urllib.request.urlopen("{}/users/{}".format(base_url, id)) as res:
+        user = json.load(res)
+        user_id = user.get('id')
     with urllib.request.urlopen("{}/todos?userId={}".format(
             base_url, user_id)) as res:
         todos = json.load(res)
