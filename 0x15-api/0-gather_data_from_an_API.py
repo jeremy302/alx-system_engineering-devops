@@ -13,11 +13,11 @@ if __name__ == '__main__':
         user = requests.get("{}/users/{}".format(base_url, id)).json()
         user_id = user.get('id')
 
-        todos = requests.get("{}/todos".format(base_url, user_id)).json()
-        todos = [t for t in todos if int(t['userId']) == id]
+        todos = requests.get("{}/todos".format(base_url)).json()
+        todos = [t for t in todos if t.get('userId') == id]
         todos_done = len([t for t in todos if t.get('completed')])
         print("Employee {} is done with tasks({}/{})".format(
             user.get('name'), todos_done, len(todos)))
-        for t in todos:
+        for t in todos_done:
             if t.get('completed'):
                 print('\t {}'.format(t.get('title')))
