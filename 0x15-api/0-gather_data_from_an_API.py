@@ -11,7 +11,6 @@ if __name__ == '__main__':
         base_url = 'https://jsonplaceholder.typicode.com'
 
         user = requests.get("{}/users/{}".format(base_url, id)).json()
-        user_id = user.get('id')
 
         todos = requests.get("{}/todos".format(base_url)).json()
         todos = [t for t in todos if t.get('userId') == id]
@@ -19,5 +18,4 @@ if __name__ == '__main__':
         print("Employee {} is done with tasks({}/{})".format(
             user.get('name'), len(todos_done), len(todos)))
         for t in todos_done:
-            if t.get('completed'):
-                print('\t {}'.format(t.get('title')))
+            print('\t {}'.format(t.get('title')))
