@@ -24,7 +24,7 @@ def count_words(subreddit, word_list, tally=None, n=0, after=None):
     if res.status_code == 200:
         res = res.json()
         posts = res['data']['children']
-        titles = list(map(lambda p: p['data']['title'].lower().split(' '),
+        titles = list(map(lambda p: p['data']['title'].lower().split(),
                           posts))
         tally = list(map(lambda t: [
             t[0],
