@@ -3,8 +3,15 @@
 import requests
 
 
-def recurse(subreddit, hot_list=[], n=0, after=None):
+def count_words(subreddit, word_list, tally=None, n=0, after=None):
     '''<TODO> documentation'''
+
+    if tally is None:
+        tally = list(map(lambda w: [w.lower(), 0], word_list))
+        tally = count_words(subreddit, word_list, tally, 0, None)
+        tally.sort(key=lambda v: v[1], reverse=True)
+        list(map(lambda v: print('{}: {}'.format(v[0], v[1])), tally))
+        return
     res = requests.get(
         'https://www.reddit.com/r/{}/.json'.format(subreddit),
         params={'sort': 'hot', 'limit': 30, 'count': n, 'after': after or '0'},
@@ -15,22 +22,13 @@ def recurse(subreddit, hot_list=[], n=0, after=None):
     if res.status_code == 200:
         res = res.json()
         posts = res['data']['children']
-        hot_list.extend(post['data']['title'] for post in posts)
+        titles = list(map(lambda p: p['data']['title'].lower().split(' '),
+                          posts))
+        tally = list(map(lambda t: [
+            t[0],
+            t[1] + sum(map(lambda title: title.count(t[0]), titles))
+        ], tally))
         if len(posts) >= 30 and res['data']['after']:
-            return recurse(subreddit, hot_list, n + len(posts),
-                           res['data']['after'])
-    return hot_list or None
-
-
-def count_words(subreddit, word_list):
-    '''<TODO> documentation'''
-    tally = {word.lower(): 0 for word in word_list}
-
-    titles = recurse(subreddit) or []
-    titles = [title.lower() for title in titles]
-    for title in titles:
-        for word in title.split(' '):
-            if word in tally:
-                tally[word] += 1
-    for k, v in sorted(tally.items(), key=lambda v: v[1], reverse=True):
-        print('{}: {}'.format(k, v))
+            return count_words(subreddit, word_list, tally, n + len(posts),
+                               res['data']['after'])
+    return tally
