@@ -19,4 +19,4 @@ def recurse(subreddit, hot_list=[], n=0, after=None):
         if len(posts) >= 30 and res['data']['after']:
             return recurse(subreddit, hot_list, n + len(posts),
                            res['data']['after'])
-    return hot_list or  None
+    return hot_list or None
