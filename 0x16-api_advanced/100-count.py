@@ -10,7 +10,7 @@ def count_words(subreddit, word_list, tally=None, n=0, after=None):
         word_list = list(set(map(lambda w: w.lower(), word_list)))
         tally = list(map(lambda w: [w.lower(), 0], word_list))
         tally = count_words(subreddit, word_list, tally, 0, None)
-        tally = list(filter(lambda v: v[1] != 0, tally))
+        tally = list(filter(lambda v: v[0] and v[1], tally))
         tally.sort(key=lambda v: (-v[1], v[0]))
         list(map(lambda v: print('{}: {}'.format(v[0], v[1])), tally))
         return
