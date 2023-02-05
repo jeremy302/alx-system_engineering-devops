@@ -1,0 +1,35 @@
+#+Title: Post-mortem
+
+* Post-mortem
+_Product Name: ShopEase_
+
+[[./img.jpg]]
+
+** Issue Summary:
+
++ Duration of Outage: February 4th, 2023, 5:00 PM to February 5th, 2023, 9:00 AM (UTC)
++ Impact :: ShopEase's e-commerce platform was down, and all users were unable to access the website. It was like a big 'Out of Order' sign on the internet! No transactions could be processed, and it's estimated that 100% of the users were affected by the outage.
++ Root Cause: The root cause of the outage was a database server failure. The server had reached its maximum capacity and was unable to handle the increased traffic, resulting in a system-wide crash. It was like the server was trying to lift a weight too heavy for it, and it just couldn't handle it!
+
+** Timeline:
+
++ February 4th, 2023, 5:00 PM: The issue was detected when a monitoring alert was triggered indicating that the website was down. It was like the website sent out an SOS signal!
++ February 4th, 2023, 5:05 PM: The issue was investigated by the platform team who initially assumed that the issue was with the web server. They were like detectives trying to solve a mystery!
++ February 4th, 2023, 5:30 PM: After further investigation, the team discovered that the root cause of the issue was with the database server. It was like finding the missing piece of the puzzle!
++ February 4th, 2023, 6:00 PM: The incident was escalated to the database team, who started working on resolving the issue. They were like superheroes, saving the day!
++ February 5th, 2023, 9:00 AM: The issue was resolved when the database server was restarted, and the website was brought back online. It was like the website was finally awake from a deep sleep!
+
+** Root Cause and Resolution:
+
++ Root Cause :: The root cause of the outage was a database server failure. The server was running on outdated hardware and was unable to handle the increased traffic caused by the recent surge in users. It was like an old car trying to keep up with a fast sports car!
++ Resolution :: To resolve the issue, the database server was restarted, which allowed the website to come back online. It was like hitting the reset button on a computer!
+
+** Corrective and Preventative Measures:
+
++ Upgrade database server hardware to support increased traffic. It's like giving the server a power-up!
++ Implement database load balancing to prevent single point of failure. It's like having a backup plan in case things go wrong!
++ Regularly monitor database server performance and capacity utilization. It's like keeping an eye on the server's health!
++ Conduct routine database server maintenance to prevent future failures. It's like taking the server to the gym to keep it in shape!
+
+** Conclusion:
+The outage experienced by ShopEase highlights the importance of having robust and scalable systems in place to handle increased traffic and prevent downtime. The corrective and preventative measures outlined in this report will ensure that the website remains online and available to users at all times. It's like putting a safety net under the website, so it never falls!
