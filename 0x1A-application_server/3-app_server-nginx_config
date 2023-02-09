@@ -55,7 +55,7 @@ server {
 		proxy_pass http://localhost:5000;
 	}
 	location /airbnb-dynamic/ {
-		proxy_pass http://localhost:5001;
+		proxy_pass http://localhost:5001/;
 	}
 
 	# pass PHP scripts to FastCGI server
