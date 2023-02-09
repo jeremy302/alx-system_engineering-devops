@@ -12,7 +12,7 @@ fi
 
 # Send a SIGQUIT signal to the Gunicorn master process
 # This will gracefully shut down all worker processes and the master process
-kill -QUIT $pid
+kill -QUIT "$pid"
 
 # Wait for all worker processes to shut down
 sleep 5
