@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Get the PID of the Gunicorn master process
+pid=$(pidof gunicorn)
+
+# Check if Gunicorn is running
+if [ -z "$pid" ]; then
+  echo "Gunicorn is not running"
+  exit 1
+fi
+
+# Send a SIGQUIT signal to the Gunicorn master process
+# This will gracefully shut down all worker processes and the master process
+kill -QUIT $pid
+
+# Wait for all worker processes to shut down
+sleep 5
+
+# Start a new instance of Gunicorn
+gunicorn --workers 3 --bind 0.0.0.0:5003 --error-logfile /tmp/airbnb-error.log --access-logfile /tmp/airbnb-access.log 2-hbnb:app &
+
+# Get the PID of the new Gunicorn instance
+new_pid=$!
+
+# Print the PID of the new Gunicorn instance
+echo "New Gunicorn instance started with PID $new_pid"
