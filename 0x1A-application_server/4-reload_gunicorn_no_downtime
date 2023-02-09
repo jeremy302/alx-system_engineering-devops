@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# restart gunicorn
 
 # Get the PID of the Gunicorn master process
 pid=$(pidof gunicorn)
